@@ -1,109 +1,67 @@
-from flask import Flask, request, jsonify
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+from transformers import BlenderbotTokenizer, BlenderbotForConditionalGeneration
 import torch
 
-app = Flask(__name__)
-
-# Improved model selection (using larger DialoGPT)
-MODEL_NAME = "microsoft/DialoGPT-large"  # More capable than medium version
-tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
-chatbot = pipeline(
-    "text-generation",
-    model=model,
-    tokenizer=tokenizer,
-    device=0 if torch.cuda.is_available() else -1  # Use GPU if available
-)
-
-# Enhanced conversation handling
-conversation_history = []
-SYSTEM_PROMPT = """You are a helpful, empathetic AI assistant. Provide thoughtful responses that:
-- Acknowledge the user's message
-- Show understanding of their context
-- Offer helpful information or suggestions
-- Maintain natural conversation flow
-
-Current conversation:
-{history}
-User: {input}
-AI:"""
-
-def format_prompt(history, user_input):
-    return SYSTEM_PROMPT.format(
-        history="\n".join(history[-4:]),  # Last 4 exchanges
-        input=user_input
-    )
-
-def enhance_response(response, user_input):
-    """Improve response quality with post-processing"""
-    # Extract AI's response
-    ai_response = response.split("AI:")[-1].strip()
-    
-    # Common emotional triggers with better responses
-    emotional_responses = {
-        "sad": "I'm sorry to hear you're feeling this way. Would you like to talk about what's bothering you?",
-        "okay": "I'm functioning well, thank you for asking! How can I assist you today?",
-        "happy": "That's wonderful to hear! What's making you happy today?",
-        "angry": "I understand this must be frustrating. Sometimes taking deep breaths can help."
-    }
-    
-    # Check for emotional keywords
-    lower_input = user_input.lower()
-    for emotion, reply in emotional_responses.items():
-        if emotion in lower_input:
-            return reply
-            
-    # Ensure complete sentences
-    if not any(ai_response.endswith(punct) for punct in ['.', '!', '?']):
-        ai_response += " Could you tell me more about that?"
-        
-    return ai_response
-
-@app.route("/")
-def home():
-    return "Advanced AI Chatbot - Use POST /chat with {'prompt':'your message'}"
-
-@app.route("/chat", methods=["POST"])
-def chat():
-    global conversation_history
-    
+def initialize_blenderbot():
+    """Initialize the model and tokenizer with error handling"""
     try:
-        data = request.get_json()
-        user_input = data.get("prompt", "").strip()
+        model_name = "facebook/blenderbot-400M-distill"
+        print("Loading model and tokenizer...")
         
-        if not user_input:
-            return jsonify({"error": "Please provide a prompt"}), 400
-
-        # Format with system prompt and history
-        full_prompt = format_prompt(conversation_history, user_input)
+        # Load tokenizer
+        tokenizer = BlenderbotTokenizer.from_pretrained(model_name)
         
-        # Generate with optimized parameters
-        response = chatbot(
-            full_prompt,
-            max_length=200,
-            temperature=0.7,
-            top_p=0.92,
-            top_k=50,
-            repetition_penalty=1.15,
-            num_beams=3,
-            do_sample=True,
-            early_stopping=True
-        )[0]['generated_text']
+        # Load model with device auto-detection
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        print(f"Using device: {device}")
+        model = BlenderbotForConditionalGeneration.from_pretrained(model_name).to(device)
         
-        # Process and enhance the response
-        ai_response = enhance_response(response, user_input)
-        
-        # Update history (keep last 5 exchanges)
-        conversation_history.extend([f"User: {user_input}", f"AI: {ai_response}"])
-        conversation_history = conversation_history[-10:]
-        
-        return jsonify({
-            "response": ai_response,
-            "history": conversation_history
-        })
+        print("Model loaded successfully!")
+        return tokenizer, model
     
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        print(f"Error initializing model: {str(e)}")
+        return None, None
 
-if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000)
+def chat_with_blenderbot(user_input, tokenizer, model):
+    """Generate a response from BlenderBot with error handling"""
+    try:
+        if not user_input or not isinstance(user_input, str):
+            return "Please provide a valid text input."
+            
+        if tokenizer is None or model is None:
+            return "Chat model is not properly initialized."
+            
+        # Tokenize the input and move to same device as model
+        inputs = tokenizer([user_input], return_tensors="pt").to(model.device)
+        
+        # Generate response
+        reply_ids = model.generate(**inputs)
+        response = tokenizer.batch_decode(reply_ids, skip_special_tokens=True)[0]
+        
+        return response
+        
+    except Exception as e:
+        return f"Sorry, I encountered an error: {str(e)}"
+
+# Main execution
+if __name__ == "__main__":
+    # Initialize the model once
+    tokenizer, model = initialize_blenderbot()
+    
+    if tokenizer and model:
+        print("BlenderBot is ready to chat! Type 'quit' to exit.")
+        while True:
+            try:
+                user_input = input("You: ")
+                if user_input.lower() in ['quit', 'exit']:
+                    break
+                
+                response = chat_with_blenderbot(user_input, tokenizer, model)
+                print("Bot:", response)
+                
+            except KeyboardInterrupt:
+                print("\nGoodbye!")
+                break
+            except Exception as e:
+                print(f"Error in chat loop: {str(e)}")
+                continue
