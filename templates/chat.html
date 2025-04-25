@@ -32,20 +32,27 @@
         }
 
         .chat-header {
-            display: flex;
+            display: flex
+        ;
             align-items: center;
             background-color: rgb(255, 255, 255);
             color: black;
-            padding: 10px 15px;
-            font-size: 18px;
+            padding: 10px 17px;
+            font-size: 20px;
             font-weight: normal;
+            height: 55px;
+            overflow: hidden;
+        
         }
 
         .chat-header img {
-            width: 50px;
-            height: 50px;
-            margin-right: 10px;
+            width: 100px;
+            height: 60px;
+            margin-right: -1px;
+            margin-left: -16px;
             border-radius: 50%;
+            flex-shrink: 0;
+            object-fit: cover;
         }
 
         #close-btn {
@@ -103,7 +110,6 @@
             font-weight: bold;
         }
 
-        /* Modal styles */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -119,10 +125,10 @@
 
         .modal-box {
             background-color: white;
-            border: 2px solid black;
-            padding: 20px;
-            width: 300px;
-            border-radius: 8px;
+            border: 1px solid black;
+            padding: 8px;
+            width: 350px;
+            border-radius: 0px;
             text-align: center;
         }
 
@@ -131,7 +137,7 @@
             height: 80px;
             margin-top: 10px;
             margin-bottom: 15px;
-            padding: 8px;
+            padding: 0px;
             resize: none;
         }
 
@@ -139,10 +145,40 @@
             margin: 0 5px;
             padding: 8px 16px;
             cursor: pointer;
+            border-radius: 30px;
             background-color: #6DA397;
+        }
+
+        .circle-button {
+            width: 114px;
+            height: 42px;
+            border-radius: 80px;
             border: none;
-            color: white;
-            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 10px 5px;
+            cursor: pointer;
+        }
+
+        .give-button {
+            background-color: white;
+            color: #000000;
+            border: 1px solid #000000;
+        }
+
+        .exit-button {
+            background-color: #6DA397;
+            color: black;
+            border-radius: 30px;
+        }
+
+        #feedback-modal p {
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        #feedback-modal .feedback-text {
+            font-size: 14px;
         }
     </style>
 </head>
@@ -150,7 +186,7 @@
     <div class="chat-container">
         <!-- Header with logo and name -->
         <div class="chat-header">
-            <img src="logo.PNG" alt="Logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Iy3eZsPeC-WFTOqbHD_8XpZDlVXAdY3DqQ6tlDSbNYKzAcap" alt="Logo">
             AI Mental Health Chatbot - Mim
             <span id="close-btn">&times;</span>
         </div>
@@ -168,23 +204,32 @@
     <!-- Feedback Modal -->
     <div id="feedback-modal" class="modal-overlay">
         <div class="modal-box">
-            <p>Would you like to leave feedback?</p>
+            <p>Session Ended</p>
+            <p class="feedback-text">Share your feedback as it helps us to improve!</p>
+            <button id="give-feedback" class="circle-button give-button">Give</button>
+            <button id="exit-bot" class="circle-button exit-button">Exit</button>
+        </div>
+    </div>
+
+    <!-- Feedback Text Modal -->
+    <div id="feedback-text-modal" class="modal-overlay">
+        <div class="modal-box">
+            <p>Leave your feedback:</p>
             <textarea id="feedback-text" placeholder="Type your feedback here..."></textarea><br>
             <button id="submit-feedback">Submit</button>
-            <button id="skip-feedback">Skip</button>
         </div>
     </div>
 
     <!-- Thank You Modal -->
     <div id="thankyou-modal" class="modal-overlay">
         <div class="modal-box">
-            <p>Thanks for using us!</p>
+            <p>Feedback Submitted, Thank you!</p>
             <button onclick="document.getElementById('thankyou-modal').style.display='none'">Close</button>
         </div>
     </div>
 
     <script>
-        document.getElementById('send-btn').addEventListener('click', async function() {
+        document.getElementById('send-btn').addEventListener('click', async function () {
             const userInput = document.getElementById('user-input');
             const message = userInput.value.trim();
 
@@ -212,20 +257,24 @@
             }
         });
 
-        // Feedback popup logic
-        document.getElementById('close-btn').addEventListener('click', function() {
+        document.getElementById('close-btn').addEventListener('click', function () {
             document.getElementById('feedback-modal').style.display = 'flex';
         });
 
-        document.getElementById('submit-feedback').addEventListener('click', function() {
+        document.getElementById('give-feedback').addEventListener('click', function () {
             document.getElementById('feedback-modal').style.display = 'none';
-            document.getElementById('thankyou-modal').style.display = 'flex';
-            document.getElementById('feedback-text').value = '';
+            document.getElementById('feedback-text-modal').style.display = 'flex';
         });
 
-        document.getElementById('skip-feedback').addEventListener('click', function() {
+        document.getElementById('exit-bot').addEventListener('click', function () {
+            document.querySelector('.chat-container').style.display = 'none';
             document.getElementById('feedback-modal').style.display = 'none';
+        });
+
+        document.getElementById('submit-feedback').addEventListener('click', function () {
+            document.getElementById('feedback-text-modal').style.display = 'none';
             document.getElementById('thankyou-modal').style.display = 'flex';
+            document.getElementById('feedback-text').value = '';
         });
     </script>
 </body>
