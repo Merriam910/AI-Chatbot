@@ -183,6 +183,7 @@
     </style>
 </head>
 <body>
+   
     <div class="chat-container">
         <!-- Header with logo and name -->
         <div class="chat-header">
@@ -276,6 +277,49 @@
             document.getElementById('thankyou-modal').style.display = 'flex';
             document.getElementById('feedback-text').value = '';
         });
+        document.getElementById('close-btn').addEventListener('click', function () {
+            // Show the feedback modal when cross button is clicked
+            document.getElementById('feedback-modal').style.display = 'flex';
+        });
+        
+        document.getElementById('give-feedback').addEventListener('click', function () {
+            // Hide the feedback modal and show the text feedback modal
+            document.getElementById('feedback-modal').style.display = 'none';
+            document.getElementById('feedback-text-modal').style.display = 'flex';
+        });
+        
+        document.getElementById('exit-bot').addEventListener('click', function () {
+            // Hide the chat container and feedback modal, and show thank you message if feedback is given
+            document.querySelector('.chat-container').style.display = 'none';
+            document.getElementById('feedback-modal').style.display = 'none';
+        
+            // Show confirmation of feedback submission before redirecting
+            if (document.getElementById('feedback-text').value.trim() !== '') {
+                document.getElementById('thankyou-modal').style.display = 'flex';
+            } else {
+                // If no feedback is given, directly go to the homepage after exit
+                window.location.href = 'http://127.0.0.1:5500/templates/index.html'; // Change to your homepage URL
+            }
+        });
+        
+        document.getElementById('submit-feedback').addEventListener('click', function () {
+            // Hide the feedback text modal and show the thank you message modal
+            document.getElementById('feedback-text-modal').style.display = 'none';
+            document.getElementById('thankyou-modal').style.display = 'flex';
+        
+            // Optionally, you could send the feedback to the server here (via an API call)
+        
+            // After a short delay (to display the thank you modal), redirect to homepage
+            setTimeout(function () {
+                window.location.href = 'http://127.0.0.1:5500/templates/index.html'; // Change to your homepage URL
+            }, 1000); // 2 seconds delay before redirecting
+        });
+        
+        // Close the thank you modal and redirect to homepage
+        document.getElementById('thankyou-modal').querySelector('button').addEventListener('click', function () {
+            window.location.href = 'http://127.0.0.1:5500/templates/index.html'; // Change to your homepage URL
+        });
+        
     </script>
 </body>
 </html>

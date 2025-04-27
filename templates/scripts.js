@@ -19,3 +19,13 @@ observer.observe(aboutUsSection);
 observer.observe(thirdPageSection);
 observer.observe(fourthPageSection);
 observer.observe(fifthPageSection); // Observe the fifth page
+
+function openPopup() {
+  document.getElementById("popup").classList.add("open");
+}
+
+// Close the popup
+function closePopup() {
+  document.getElementById("popup").classList.remove("open");
+}
+
