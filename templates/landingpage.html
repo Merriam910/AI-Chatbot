@@ -4,384 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AI Wellness Ally</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #EDEFEA;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
-    /* Animation Keyframes for zoom-in effect */
-    @keyframes zoomInFromBottom {
-      0% {
-        transform: translateY(50px);
-        opacity: 0;
-      }
-      60% {
-        transform: translateY(-10px);
-        opacity: 0.8;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    /* Apply animation to the hero section */
-    .hero h1, .hero p, .hero-buttons button {
-      animation: zoomInFromBottom 1.5s ease-out;
-    }
-
-    .hero h1 {
-      animation-delay: 0.5s;
-    }
-
-    .hero p {
-      animation-delay: 1s;
-    }
-
-    .hero-buttons button {
-      animation-delay: 1.5s;
-    }
-
-    nav {
-      background-color: #F7F7F7;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.5rem 1.5rem;
-      border-radius: 30px;
-      width: 75%;
-      max-width: 1200px;
-      margin: 1rem auto;
-      position: fixed;
-      top: -4px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1000;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      height: 60px;
-    }
-
-    .logo {
-      flex: 1;
-    }
-
-    .logo img {
-      height: 36px;
-      width: auto;
-    }
-
-    .nav-links {
-      flex: 2;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .nav-links a {
-      text-decoration: none;
-      color: #333;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .nav-links a:hover {
-      color: #2B7A69;
-    }
-
-    .signup-btn {
-      flex: 1;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .signup-btn button {
-      background-color: #2B7A69;
-      color: white;
-      padding: 0.6rem 1.2rem;
-      border: none;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 0.95rem;
-    }
-
-    .signup-btn button:hover {
-      background-color: #24695b;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 6rem 2rem 5rem;
-      position: relative;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-
-    .hero.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .hero h1 {
-      font-size: 3rem;
-      font-weight: bold;
-      color: rgb(0, 0, 0);
-      margin: 0.5rem 0;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      color: rgb(0, 0, 0);
-      margin-top: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-buttons .chat-btn {
-      background-color: #2B7A69;
-      color: white;
-      padding: 0.75rem 2rem;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .hero-buttons .chat-btn:hover {
-      background-color: #24695b;
-    }
-
-    .hero-buttons .login-btn {
-      background-color: white;
-      color: #2B7A69;
-      padding: 0.75rem 2rem;
-      border: 2px solid #2B7A69;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s;
-    }
-
-    .hero-buttons .login-btn:hover {
-      background-color: #2B7A69;
-      color: white;
-    }
-
-    .image-container {
-      position: relative;
-      width: 80%;
-      max-width: 800px;
-      margin: 2rem auto 0;
-    }
-
-    .divider {
-      position: absolute;
-      top: 75%;
-      left: 50%;
-      height: 32px;
-      width: 100%;
-      background-color: #2B7A69;
-      border-radius: 50px;
-      transform: translateX(-50%);
-      z-index: -1;
-    }
-
-    .image-container img {
-      width: 100%;
-      border-radius: 30px;
-      position: relative;
-      z-index: 1;
-    }
-
-    footer {
-      height: 206px;
-      background-color: #2B7A69;
-      margin-top: -17rem;
-    }
-
-    .about-us {
-      background-color: #FFFFFF;
-      padding: 4rem 14rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-
-    .about-us.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .about-us .text {
-      max-width: 50%;
-    }
-
-    .about-us h2 {
-      font-size: 2.5rem;
-      font-weight: bold;
-      color: black;
-    }
-
-    .about-us p {
-      font-size: 1.2rem;
-      color: #333;
-      margin-top: 1rem;
-    }
-
-    .start-btn {
-      background-color: #2B7A69;
-      color: white;
-      padding: 0.75rem 2rem;
-      border: none;
-      border-radius: 30px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 2rem;
-      transition: background 0.3s;
-    }
-
-    .start-btn:hover {
-      background-color: #24695b;
-    }
-
-    .about-us .image {
-      max-width: 40%;
-    }
-
-    .about-us .image img {
-      width: 100%;
-      border-radius: 15px;
-    }
-
-    /* Scroll animations */
-    .scroll-animate {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .scroll-animate.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Third Page (Green Section) */
-    .third-page {
-      background-color: #2B7A69;
-      color: white;
-      padding: 6rem 2rem;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(50px); /* Initial state for animation */
-      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-    }
-
-    .third-page.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .boxes-container {
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      margin-top: 3rem;
-    }
-
-    .box {
-      background-color: white;
-      color: #2B7A69;
-      width: 260px; /* Increased width */
-      height: 330px; /* Increased height */
-      border-radius: 20px;
-      text-align: center;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .box:hover {
-      transform: scale(1.05);
-    }
-
-    .box img {
-      width: 80%;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 1rem;
-    }
-
-    .box h3 {
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin-bottom: 1rem;
-    }
-
-    .box p {
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .box .learn-more-btn {
-      background-color: #2B7A69;
-      color: white;
-      padding: 0.4rem 1rem; /* Reduced size of button */
-      border: none;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 0.85rem; /* Reduced font size for button */
-      margin-top: auto; /* To keep it at the bottom of the box */
-    }
-
-    .box .learn-more-btn:hover {
-      background-color: #24695b;
-    }
-
-    .box .features-list {
-      list-style-type: none;
-      padding: 0;
-      margin-top: 1rem;
-      text-align: left; /* Left align the list */
-      font-size: 1rem;
-    }
-
-    .box .features-list li {
-      margin-bottom: 0.5rem;
-    }
-
-  </style>
+ 
 </head>
 <body>
 
   <nav>
     <div class="logo">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7Iy3eZsPeC-WFTOqbHD_8XpZDlVXAdY3DqQ6tlDSbNYKzAcap" alt="Logo">
+      <img src="https://res.cloudinary.com/dm4vmfqle/image/upload/v1745707988/1000_F_268887497_zUduupxYhFf0plFgjgga03unIi8ovX0k-removebg-preview_1_vhe8zr.png" alt="Logo">
     </div>
 
     <div class="nav-links">
@@ -430,7 +62,7 @@
     <h2>Explore Our Services</h2>
     <div class="boxes-container">
       <div class="box">
-        <img src="https://via.placeholder.com/150" alt="AI Powered">
+        <img src="https://res.cloudinary.com/dm4vmfqle/image/upload/v1745706550/7b17cbd7-0e29-40ee-a964-139761411412_sman1j.jpg" alt="AI Powered">
         <h3>AI Powered</h3>
         <ul class="features-list">
           <li>Auto-detect your mental state</li>
@@ -440,7 +72,7 @@
         <button class="learn-more-btn">Learn More</button>
       </div>
       <div class="box">
-        <img src="https://via.placeholder.com/150" alt="Radically Private">
+        <img src="https://res.cloudinary.com/dm4vmfqle/image/upload/v1745706600/697f2d16-5492-4ecc-b4ad-e33d30f01f89_rn2xhb.jpg" alt="Radically Private">
         <h3>Radically Private</h3>
         <ul class="features-list">
           <li>No lengthy forums</li>
@@ -450,7 +82,7 @@
         <button class="learn-more-btn">Learn More</button>
       </div>
       <div class="box">
-        <img src="https://via.placeholder.com/150" alt="
+        <img src="https://res.cloudinary.com/dm4vmfqle/image/upload/v1745706668/e9db836c-2905-43f5-a229-8ad4aadf1cbf_a83m2v.jpg" alt="
 Effortless">
         <h3>
             Effortless</h3>
@@ -463,27 +95,73 @@ Effortless">
       </div>
     </div>
   </section>
+  <section class="fourth-page">
+    <div class="fourth-content">
+      <h1>Try the AI Mental Health</h1>
+      <h2>Chatbot Today!</h2>
+      <p>
+        Taking care of your mental health has never been easier. Our AI-powered
+        chatbot is available 24/7 to provide support, guidance, and coping
+        strategies. Whether you're feeling stressed, anxious, or just need someone
+        to talk to, our chatbot is here to listen and help.
+      </p>
+      <button class="learn-more-btn">Learn More</button>
+    </div>
+  </section>
+  <section class="fifth-page">
+    <h1 class="main-heading">Contact Us</h1>
+    
+    <div class="contact-container">
+      <section class="left-side">
+        <div class="contact-box">
+          <h2 class="get-in-touch">Get in touch</h2>
+          <p class="contact-info">
+            Phone: <span class="highlight">0 (800) 123 45 67</span><br>
+            WhatsApp: <span class="highlight">0 (800) 123 45 67</span><br>
+            Email: <span class="highlight">info@mim.com</span>
+          </p>
+          <p class="address">Address: <br> 350 5th Ave, UAE, Dubai</p>
+        </div>
+      </section>
+      
+      <section class="right-side">
+        <!-- Embed Google Map -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.80464649916!2d55.22440932159203!3d25.27698744203867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f5f5f5f5f5f5f%3A0x3e5f5f5f5f5f5f5f!2s350%205th%20Ave%2C%20UAE%2C%20Dubai!5e0!3m2!1sen!2sin!4v1630425137235" width="100%" height="250" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+      </section>
+    </div>
+    <div class="footer">
+        <div class="footer-line"></div>
+        
+        <!-- Social Media Icons -->
+        <div class="social-icons">
+          <a href="https://facebook.com" target="_blank" title="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="https://twitter.com" target="_blank" title="Twitter">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="https://instagram.com" target="_blank" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://youtube.com" target="_blank" title="YouTube">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </div>
+        
+        <!-- Copyright Text -->
+        <div class="copyright">
+          &copy; 2025 All Rights Reserved
+        </div>
+      </div>
+      
+  </section>
+  
+  </section>
+  
+  
+  
 
-  <script>
-    // Observe visibility and apply class for animations
-    const heroSection = document.querySelector('.hero');
-    const aboutUsSection = document.querySelector('.about-us');
-    const thirdPageSection = document.querySelector('.third-page');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        } else {
-          entry.target.classList.remove('visible');
-        }
-      });
-    }, { threshold: 0.5 });
-
-    observer.observe(heroSection);
-    observer.observe(aboutUsSection);
-    observer.observe(thirdPageSection);
-  </script>
+  <script src="scripts.js"></script>
 
 </body>
 </html>
