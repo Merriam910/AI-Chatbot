@@ -185,15 +185,16 @@
 
     .divider {
       position: absolute;
-      top: 75%;
+      top: 123%;
       left: 50%;
-      height: 32px;
-      width: 100%;
+      width: 171%;
       background-color: #2B7A69;
-      border-radius: 50px;
+      border-radius: 16px;
       transform: translateX(-50%);
       z-index: -1;
-    }
+      margin-top: -17rem;
+      height: 212px;
+  }
 
     .image-container img {
       width: 100%;
@@ -202,11 +203,7 @@
       z-index: 1;
     }
 
-    footer {
-      height: 206px;
-      background-color: #2B7A69;
-      margin-top: -17rem;
-    }
+    
 
     .about-us {
       background-color: #FFFFFF;
@@ -285,120 +282,137 @@
       padding: 6rem 2rem;
       text-align: center;
       opacity: 0;
-      transform: translateY(50px); /* Initial state for animation */
+      transform: translateY(50px);
       transition: opacity 0.7s ease-out, transform 0.7s ease-out;
       font-size: 2rem;
     }
-
+    
     .third-page.visible {
       opacity: 1;
       transform: translateY(0);
     }
-
+    
     .boxes-container {
       display: flex;
       justify-content: center;
-      gap: 3rem;
+      gap: 5rem; /* increased spacing */
       flex-wrap: wrap;
       margin-top: 3rem;
     }
-
+    
+    /* Flip setup */
     .box {
-      background-color: white;
-      color: #2B7A69;
-      width: 240px; /* Increased width */
-      height: 350px; /* Increased height */
+      width: 240px;
+      height: 350px;
+      perspective: 1000px; /* needed for 3D flip */
+    }
+    
+    .box-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      transform: rotateY(180deg); /* Start showing back side */
       border-radius: 20px;
-      text-align: center;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+    }
+    
+    .box:hover .box-inner {
+      transform: rotateY(0deg); /* On hover, flip to front */
+    }
+    
+    .box-front, .box-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
-
-    .box:hover {
-      transform: scale(1.05);
+    
+    /* Front Side */
+    .box-front {
+      background-color: white;
+      color: #2B7A69;
+      transform: rotateY(0deg);
     }
-
-    .box img {
-        width: 88%;
-        height: 179px;
-        border-radius: 10px;
-        margin-bottom: 0rem;
-        margin-left: 0.75rem;
+    
+    .box-front img {
+      width: 88%;
+      height: 150px;
+      border-radius: 10px;
+      margin-bottom: 0;
+      margin-left: 0.75rem;
     }
-
-    .box h3 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 0rem;
-        margin-top: 1rem;
+    
+    .box-front h3 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      margin-bottom: 0;
     }
-
-    .box p {
+    
+    .box-front .features-list {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 1rem;
+      text-align: left;
       font-size: 1rem;
-      margin-bottom: 1.5rem;
     }
-
-    .box .learn-more-btn {
+    
+    .box-front .features-list li {
+      margin-bottom: 0.5rem;
+    }
+    
+    .learn-more-btn {
       background-color: #2B7A69;
       color: white;
-      padding: 0.4rem 1rem; /* Reduced size of button */
+      padding: 0.4rem 1rem;
       border: none;
       border-radius: 20px;
       font-weight: bold;
       cursor: pointer;
       transition: background 0.3s;
-      font-size: 0.85rem; /* Reduced font size for button */
-      margin-top: auto; /* To keep it at the bottom of the box */
-      width: 9rem;
-    margin-left: 3rem;
-    }
-
-    .box .learn-more-btn:hover {
-      background-color: #24695b;
-    }
-
-    .box .features-list {
-      list-style-type: none;
-      padding: 0;
-      margin-top: 1rem;
-      text-align: left; /* Left align the list */
-      font-size: 1rem;
-    }
-
-    .box .features-list li {
-      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      margin-top: auto;
+      width: 10rem;
+      margin-left: auto;
+      margin-right: auto;
     }
     
-    .fourth-page {
-        background-color: #24695b;
-        color: white;
-        text-align: center;
-        padding: 6rem 2rem;
-        height: 100vh; /* Full viewport height */
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .learn-more-btn:hover {
+      background-color: #24695b;
+    }
+    
+    /* Back Side */
+    .box-back {
+      background-color: #2B7A69;
+      color: white;
+      transform: rotateY(180deg);
+      font-size: 1.5rem;
+      font-weight: bold;
+      border: 2px solid white; /* Subtle white border */
+      box-shadow: 0 0 5px white, 0 0 10px white; /* softer LED glow */
+      animation: glow 3s infinite; /* Smooth slow pulse */
+    }
+    
+    /* Glow animation */
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 5px white, 0 0 10px white;
       }
-      
-      .fourth-content {
-        max-width: 800px; /* Limit the width */
+      50% {
+        box-shadow: 0 0 7px white, 0 0 14px white;
       }
-      
-      .fourth-page h1 {
-        font-size: 3rem; /* Large heading */
-        font-weight: bold;
-        margin-bottom: 1rem;
+      100% {
+        box-shadow: 0 0 5px white, 0 0 10px white;
       }
-      
-      .fourth-page h2 {
-        font-size: 3rem; /* Same size as h1, but on the next line */
-        font-weight: bold;
-        margin-bottom: 2rem;
-      }
+    }
+    
       
       /* 4th Page Styling */
       /* Fourth Page - Adding transition similar to hero and third pages */
@@ -463,131 +477,120 @@
 }
 /* Fifth Page Styling */
 body {
-    background-color: #F6F6F6; /* Set the background color */
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  .fifth-page {
-    padding: 5rem 2rem 2rem 2rem; /* Reduced top padding and fixed syntax */
-    text-align: center;
-  }
-  
-  
-  .main-heading {
-    font-size: 3rem;
-    font-weight: bold;
-    color:rgb(0, 0, 0); /* Green color for the heading */
-    margin-bottom: 5rem;
-  
-  }
-  
-  .contact-container {
-    display: flex;
-   
-    align-items: flex-start;
-    gap: 0.5rem; /* very close */
-    margin-top: 2rem;
-  }
-  
-  
-  .left-side {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+  background-color: #F6F6F6;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
 
-  }
+.fifth-page {
+  padding: 5rem 2rem 2rem 2rem;
+  text-align: center;
+}
+
+.main-heading {
+  font-size: 3rem;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 5rem;
+}
+
+.contact-container {
+  display: flex;
+  justify-content: center; /* center both sides */
+  align-items: flex-start;
+  gap: 3rem; /* more space */
+  flex-wrap: wrap;
+}
+
+.left-side, .right-side {
+  flex: 1;
+  max-width: 500px; /* limit max width */
+}
+
+.contact-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.get-in-touch {
+  font-size: 2rem;
+  color: black;
+  margin-bottom: 1.5rem;
+}
+
+.contact-info, .address {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.highlight {
+  color: #24695b;
+}
+
+.address {
+  margin-top: 1.5rem;
+}
+
+.right-side iframe {
+  width: 100%;
+  height: 290px;
+  border-radius: 15px;
+  border: none;
+}
+
+.footer {
+      position: absolute;
+      top: 623%;
+      left: 50%;
+      width: 171%;
+      background-color: #2B7A69;
+      border-radius: 16px;
+      transform: translateX(-50%);
+      z-index: -1;
+      margin-top: -17rem;
+      height: 212px;
   
-  .right-side {
-    flex: 1;
-    display: flex;
- 
-  }
-  
-  .contact-box {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    width: 300px; /* made it smaller */
-    max-width: 300px; /* smaller max */
-    margin: 0 auto;
-    padding-left: 2rem; /* reduced padding */
-    padding-top: 0rem;
-  }
-  
-  
-  .get-in-touch {
-    font-size: 2rem;
-    color:rgb(0, 0, 0); /* Green color */
-    margin-bottom: 0.75rem; /* Reduced gap between the heading and the contact details */
-  }
-  
-  .contact-info,
-  .address {
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .highlight {
-    color: #24695b; /* Green color for contact details */
-  }
-  
-  .address {
-    margin-top: 1.5rem;
-  }
-  
-  .right-side iframe {
-    width: 80%;
-    height: 230px; /* Reduced height to make map more rectangular */
-    border-radius: 8px;
-  }
-  .footer {
-    background-color: #2B7A69;
-    padding: 1.5rem 0;
-    text-align: center;
-    width: 100vw;
-    margin: -33px;
-    position: relative;
-    left: 0;
-  }
-  
-  .footer-line {
-    background-color: #2B7A69;
-    height: 10px;
-    width: 100%;
-    margin-top: rem;
-  }
-  
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 1rem;
-  }
-  
-  .social-icons a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background-color: white;
-    color: #2B7A69;
-    font-size: 1.5rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  .social-icons a:hover {
-    background-color: #24695b;
-    color: white;
-  }
-  
-  .copyright {
-    margin-top: 1.5rem;
-    color: white;
-    font-size: 1rem;
-  }
-  
+}
+
+
+.footer-line {
+  background-color: #2B7A69;
+  height: 5px;
+  width: 100%;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.social-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: white;
+  color: #2B7A69;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #24695b;
+  color: white;
+}
+
+.copyright {
+  margin-top: 1rem;
+  color: white;
+  font-size: 1rem;
+}
