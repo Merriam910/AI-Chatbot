@@ -298,7 +298,7 @@
                 document.getElementById('thankyou-modal').style.display = 'flex';
             } else {
                 // If no feedback is given, directly go to the homepage after exit
-                window.location.href = 'http://127.0.0.1:5500/templates/index.html'; // Change to your homepage URL
+                window.location.href = 'http://127.0.0.1:5000/'; // Change to your homepage URL
             }
         });
         
@@ -311,13 +311,13 @@
         
             // After a short delay (to display the thank you modal), redirect to homepage
             setTimeout(function () {
-                window.location.href = 'http://127.0.0.1:5500/templates/index.html'; // Change to your homepage URL
+                window.location.href = 'http://127.0.0.1:5000/'; // Change to your homepage URL
             }, 1000); // 2 seconds delay before redirecting
         });
         
         // Close the thank you modal and redirect to homepage
         document.getElementById('thankyou-modal').querySelector('button').addEventListener('click', function () {
-            window.location.href = 'http://127.0.0.1:5500/templates/index.html'; // Change to your homepage URL
+            window.location.href = 'http://127.0.0.1:5000/'; // Change to your homepage URL
         });
         
     </script>
