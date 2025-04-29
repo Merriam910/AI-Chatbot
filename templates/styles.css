@@ -120,7 +120,7 @@
       position: absolute;
       top: 123%;
       left: 50%;
-      width: 185%;
+      width: 637%;
       background-color: #2B7A69;
       border-radius: 0px;
       transform: translateX(-50%);
@@ -140,7 +140,7 @@
 
     .about-us {
       background-color: #FFFFFF;
-      padding: 4rem 14rem;
+      padding: 11rem 14rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -354,7 +354,7 @@
         color: white;
         text-align: center;
         padding: 6rem 2rem;
-        height: 44vh;
+        height: 45vh;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -436,6 +436,7 @@ body {
   font-weight: bold;
   color: black;
   margin-bottom: 5rem;
+  margin-top: 4rem;
 }
 
 .contact-container {

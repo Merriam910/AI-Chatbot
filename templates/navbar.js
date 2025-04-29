@@ -4,15 +4,21 @@ document.write(`
     <img src="https://res.cloudinary.com/dm4vmfqle/image/upload/v1745707988/1000_F_268887497_zUduupxYhFf0plFgjgga03unIi8ovX0k-removebg-preview_1_vhe8zr.png" alt="Logo">
   </div>
 
+  <div class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+    ☰
+  </div>
+
   <div class="nav-links">
     <a href='index.html'>Home</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
-    <a href='chat.html'target="_blank">Chat Now</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="index.html#aboutus">About Us</a>
   </div>
 
   <div class="signup-btn">
-    <button>Sign Up</button>
+    <a href="signup.html">
+      <button>Sign Up</button>
+    </a>
   </div>
 </nav>
 
@@ -22,35 +28,32 @@ document.write(`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1.5rem;
+    padding: 0.5rem 1rem;
     border-radius: 30px;
-    width: 75%;
+    width: 90%;
     max-width: 1200px;
     margin: 1rem auto;
     position: fixed;
-    top: -4px;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     z-index: 1000;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 45px;
-  }
-
-  .logo {
-    flex: 1;
+    flex-wrap: wrap;
   }
 
   .logo img {
-    height: 66px;
+    height: 50px;
     width: auto;
   }
 
   .nav-links {
-    flex: 2;
     display: flex;
     justify-content: center;
-    gap: 2rem;
     align-items: center;
+    gap: 2rem;
+    flex: 1;
+    transition: max-height 0.3s ease-out;
   }
 
   .nav-links a {
@@ -65,25 +68,69 @@ document.write(`
   }
 
   .signup-btn {
-    flex: 1;
     display: flex;
     justify-content: flex-end;
+  }
+
+  .signup-btn a {
+    text-decoration: none;
   }
 
   .signup-btn button {
     background-color: #2B7A69;
     color: white;
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
     border: none;
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .signup-btn button:hover {
     background-color: #24695b;
+  }
+
+  .nav-toggle {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  @media (max-width: 768px) {
+    nav {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 0.7rem 1.2rem;
+    }
+
+    .nav-toggle {
+      display: block;
+      position: absolute;
+      right: 1.5rem;
+      top: 1.2rem;
+    }
+
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .nav-links.active {
+      max-height: 300px;
+    }
+
+    .signup-btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
   }
 </style>
 `);
