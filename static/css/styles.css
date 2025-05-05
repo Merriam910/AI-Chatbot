@@ -120,13 +120,13 @@
       position: absolute;
       top: 123%;
       left: 50%;
-      width: 637%;
+      width: 100vw;
       background-color: #2B7A69;
       border-radius: 0px;
       transform: translateX(-50%);
       z-index: -1;
       margin-top: -17rem;
-      height: 212px;
+      height: 240px;
   }
 
     .image-container img {
@@ -181,6 +181,7 @@
       cursor: pointer;
       margin-top: 2rem;
       transition: background 0.3s;
+      text-decoration: none;
     }
 
     .start-btn:hover {
@@ -543,4 +544,184 @@ body {
 /*Responsivenes*/
 
 /* General fix for full-width content */
+
+/* Media Queries for Smaller Screens */
+/* hero */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .divider {
+  display: none !important;
+  }
+  /* About */
+  .about-us {
+    padding: 8rem 1rem; 
+    flex-direction: column; 
+    align-items: center;
+  }
+
+  .about-us .text {
+    max-width: 80%; 
+    text-align: center; 
+  }
+
+  .about-us h2 {
+    font-size: 2rem;
+  }
+
+  .about-us p {
+    font-size: 1rem; 
+  }
+
+  .about-us .image {
+    max-width: 90%; 
+    margin-top: 2rem; 
+  }
+
+  .start-btn {
+    font-size: 1rem; 
+    padding: 0.6rem 1.8rem; 
+  }
+
+  /* Services */
+  .fourth-page {
+    padding: 4rem 1rem; 
+    height: auto; 
+  }
+
+  .fourth-page h1 {
+    font-size: 2.5rem; 
+  }
+
+  .fourth-page h2 {
+    font-size: 2.5rem;
+  }
+
+  .fourth-page p {
+    font-size: 1rem; 
+  }
+
+  .learn-more-btn {
+    padding: 0.6rem 1.5rem; 
+    font-size: 0.9rem; 
+  }
+
+  .boxes-container{
+    margin-left: 10px;
+  }
+
+  /* Contact Us */
+  .main-heading {
+    font-size: 2.2rem;
+    margin-bottom: 3rem;
+  }
+
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .left-side, .right-side {
+    max-width: 100%;
+    flex: unset;
+  }
+
+  .contact-box {
+    padding: 1.5rem;
+  }
+
+  .get-in-touch {
+    font-size: 1.5rem;
+  }
+
+  .contact-info, .address {
+    font-size: 1rem;
+  }
+
+  .right-side iframe {
+    height: 250px;
+  }
+
+  /* Footer */
+
+  .footer {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+    padding: 2rem 1rem;
+  }
+
+  .social-icons {
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-left: 0;
+  }
+
+  .copyright {
+    margin-left: 0;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Hero Section */
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+
+  .hero p {
+    font-size: 0.95rem;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* About */
+  .about-us h2 {
+    font-size: 1.8rem; 
+  }
+
+  .about-us p {
+    font-size: 0.9rem; 
+  }
+
+  .start-btn {
+    font-size: 0.9rem; 
+    padding: 0.5rem 1.5rem; 
+  }
+
+  /* Services */
+  .fourth-page {
+    padding: 3rem 1rem; 
+    height: auto; 
+  }
+
+  .fourth-page h1 {
+    font-size: 2rem; 
+  }
+
+  .fourth-page h2 {
+    font-size: 2rem; 
+  }
+
+  .fourth-page p {
+    font-size: 0.9rem; 
+  }
+
+  .learn-more-btn {
+    padding: 0.5rem 1.2rem; 
+    font-size: 0.85rem; 
+  }
+}
+
 
