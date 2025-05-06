@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Report Any Issue</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
   <head>
     <!-- Add this in your head tag to include Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -14,18 +15,20 @@
       font-family: Arial, sans-serif;
       background-color: #f5f5f5;
       margin: 0;
-      padding: 66px;
+      min-height: 100vh;
+    }
+    .contact-form-main{
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
     }
     
     .contact-form {
       background-color: transparent;
       padding: 20px;
-      width: 100%;
+      width: 90%;
       max-width: 500px;
+      padding: 66px;
       /* Fade-in effect */
       opacity: 0;
       animation: fadeIn 1.5s ease forwards;
@@ -144,67 +147,26 @@
         padding: 10px 15px;
       }
     }
-    .footer {
-      position: relative; /* or just remove 'position' */
-      width: 263%;
-      background-color: #2B7A69;
-      border-radius: 0px 0px 0 0;
-      padding: 2rem 1rem;
-      margin-top: 5rem;
-      text-align: center;
-      box-sizing: border-box;
-      margin-left:-32.5rem;
-      margin-bottom: -127px;
+    @media (min-width: 601px) {
+      .form-row .form-group {
+        flex: 1 1 48%;
+      }
     }
-    
-    
-    
-    
-    .footer-line {
-      background-color: #2B7A69;
-      height: 5px;
-      width: 100%;
-    }
-    
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 1.5rem;
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-      margin-left: 12rem;
-    }
-    
-    .social-icons a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      background-color: white;
-      color: #2B7A69;
-      font-size: 1.5rem;
-      transition: all 0.3s ease;
-     
-    }
-    
-    .social-icons a:hover {
-      background-color: #24695b;
-      color: white;
-    }
-    
-    .copyright {
-      margin-top: 1rem;
-      color: white;
-      font-size: 1rem;
-      margin-left: 12rem;
+
+    @media (max-width: 600px) {
+      .contact-form {
+        padding: 20px 15px;
+      }
+
+      .send-btn {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
- <section="contact-form">
+ <section class="contact-form-main">
   <div class="contact-form">
     <h1>Report Any Issue</h1>
     <p>To change your notification email, click on any form field below.</p>
@@ -237,7 +199,7 @@
   </div>
 </section>
 
-  <section class"footer">
+<section >
     <div class="footer">
         <div class="footer-line"></div>
         
